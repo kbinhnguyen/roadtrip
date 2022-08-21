@@ -15,7 +15,6 @@ export default function ActiveTrip() {
 
   const { username } = useContext(AuthContext);
   const [ tripId, setTripId ] = useState(null);
-  const [cities, setCities] = useState([]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -24,17 +23,17 @@ export default function ActiveTrip() {
       .then((response) => {
         console.log('response received');
         setTripId(response.data.id);
-        getTrip(response.data.id, setCities);
       })
       .catch((err) => {
-        console.error('errored in gettingActiveTrip', err)})
+        console.error('errored in gettingActiveTrip', err)});
+
+    return () => { setTripId(null); }
     }, [])
   );
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      {/* {console.log()} */}
-      {tripId && cities && (<DestinationViewer tripId={tripId} cities={cities} />)}
+      {tripId && (<DestinationViewer tripId={tripId} />)}
     </View>
   )
 }

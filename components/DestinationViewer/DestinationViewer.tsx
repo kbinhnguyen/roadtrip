@@ -17,7 +17,7 @@ export default function DestinationViewer(props) {
   const route = useRoute();
   const navigation = useNavigation();
   const tripId = props.tripId || route.params.tripId;
-  const [cities, setCities] = useState(props.cities || []);
+  const [cities, setCities] = useState([]);
 
 
   // const getTrip = (tripId) => {
