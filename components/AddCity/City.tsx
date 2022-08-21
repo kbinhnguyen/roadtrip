@@ -1,9 +1,8 @@
 import React from 'react';
-import {Text, View, Image, Button, StyleSheet } from 'react-native';
-import axios from 'axios';
+import {Text, View, StyleSheet } from 'react-native';
 
 export default function City ( {cityInfo}: {cityInfo: any}) {
-  console.log('within the city', cityInfo.name)
+  // console.log('within the city', cityInfo.name)
   return (
     <View style = {styles.container}>
       <Text style={styles.text}> {cityInfo.name} </Text>
