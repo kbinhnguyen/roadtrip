@@ -15,7 +15,6 @@ import AddPOI from "../components/AddPOI/AddPOI";
 const Stack = createNativeStackNavigator();
 
 export default function Login() {
-  const navigation = useNavigation();
   //main navigation will have the login (authentication porttion) as well as the bottom containers attached
 
   //MAIN
@@ -32,11 +31,5 @@ export default function Login() {
       <Stack.Screen options={{ headerTransparent: true}} name= "PoiViewer" children={() => <PoiViewer /> }/>
 
     </Stack.Navigator>
-    // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    //   <Pressable
-    //   onPress={() => {navigation.navigate("DrawerNavigatorRoutes")}}>
-    //   <Text>This is the Login Screen</Text>
-    //   </Pressable>
-    // </View>
   )
 }
