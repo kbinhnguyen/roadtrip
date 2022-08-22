@@ -1,14 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, TabActions } from "@react-navigation/native";
 
 export default function TripCard(props: any) {
 
   const navigation = useNavigation();
-  // console.log(props.key);
-  if (props.tripStatus === 'active') {
-    console.log(navigation);
-  }
 
   return (
     <Pressable
@@ -20,7 +16,11 @@ export default function TripCard(props: any) {
             tripName: props.tripName
           })
         } else {
-          navigation.jumpTo('Active Trip');
+          const jumpToAction = TabActions.jumpTo('Active Trip', {
+            tripId: props.tripId,
+            tripName: props.tripName
+          });
+          navigation.dispatch(jumpToAction);
         }
 
       }}

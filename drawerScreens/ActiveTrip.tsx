@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFocusEffect } from '@react-navigation/native';
 import DestinationViewer from "../components/DestinationViewer/DestinationViewer";
@@ -11,24 +11,30 @@ import AddPOI from "../components/AddPOI/AddPOI";
 
 const Stack = createStackNavigator();
 
-export default function ActiveTrip() {
+export default function ActiveTrip({ route }) {
 
   const { username } = useContext(AuthContext);
   const [ tripId, setTripId ] = useState(null);
 
   useFocusEffect(
     useCallback(() => {
-    const path = `${config.LOCALTUNNEL}/trips/${username}/active`
-    axios.get(path)
-      .then((response) => {
-        setTripId(response.data.id);
-      })
-      .catch((err) => {
-        console.error('errored in gettingActiveTrip', err)});
-
-    return () => { setTripId(null); }
+      if (route.params) {
+        console.log('if statement was called');
+        setTripId(route.params.tripId);
+      } else {
+        console.log('else in useFocusEffect was called');
+        const path = `${config.LOCALTUNNEL}/trips/${username}/active`
+        axios.get(path)
+          .then((response) => {
+            setTripId(response.data.id);
+          })
+          .catch((err) => {
+            console.error('errored in gettingActiveTrip', err)});
+      }
+      return () => { setTripId(null); }
     }, [])
   );
+
 
   return (
     <Stack.Navigator initialRouteName="DestinationViewer">
