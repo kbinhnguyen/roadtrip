@@ -4,19 +4,25 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function TripCard(props: any) {
 
-  const [active, setActive] = useState(false);
-
   const navigation = useNavigation();
   // console.log(props.key);
+  if (props.tripStatus === 'active') {
+    console.log(navigation);
+  }
 
   return (
     <Pressable
       style={styles.container}
       onPress={() => {
-        navigation.navigate('DestinationViewer', {
-          tripId: props.tripId,
-          tripName: props.tripName
-        })
+        if (props.tripStatus !== 'active') {
+          navigation.navigate('DestinationViewer', {
+            tripId: props.tripId,
+            tripName: props.tripName
+          })
+        } else {
+          navigation.jumpTo('Active Trip');
+        }
+
       }}
     >
       <Text style={styles.tripName}>{props.tripName}</Text>
