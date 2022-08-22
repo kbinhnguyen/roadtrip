@@ -20,6 +20,7 @@ export default function HomeScreen(props: any) {
     let userEmail = username || 'noa@email.com';
     axios.get(`${config.LOCALTUNNEL}/trips/${userEmail}`)
     .then((results) => {
+      console.log('GET all trips was called');
       setTripsShowing(results.data);
       results.data.forEach((trip) => {
         if (trip.status === 'active') {
