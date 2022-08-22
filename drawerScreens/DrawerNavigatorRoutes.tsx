@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Image } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./Login";
 import Archive from "../components/Archive/Archive";
-import { AuthContext } from "../AuthProvider";
 
 import ActiveTrip from "./ActiveTrip";
 
@@ -11,23 +10,24 @@ import ActiveTrip from "./ActiveTrip";
 const Bottom = createBottomTabNavigator();
 
 export default function DrawerNavigatorRoutes() {
-  // const { username } = useContext(AuthContext);
 
   return (
-    <Bottom.Navigator
-    >
+    <Bottom.Navigator>
       <Bottom.Screen
-       options={{
-        tabBarIcon: () => (
-          <Image
-            source={{
-              uri: "/Users/jasonchiou/Roadtrips/roadtrip/assets/google-maps-pin-google-maps-pin-google-map-maker-places-5abdbd0c442f58.1359204115223841402793.png",
-            }}
-            style={{ width: 30, height: 30, borderRadius: 10 }}
-          />
-        ),
-      }}
-      name="All Trips" children={() => (<Login /> )} />
+        options={{
+          tabBarIcon: () => (
+            <Image
+              source={{
+                uri: "/Users/jasonchiou/Roadtrips/roadtrip/assets/google-maps-pin-google-maps-pin-google-map-maker-places-5abdbd0c442f58.1359204115223841402793.png",
+              }}
+              style={{ width: 30, height: 30, borderRadius: 10 }}
+            />
+          ),
+          unmountOnBlur: true,
+        }}
+        name="All Trips"
+        component={Login}
+      />
 
       <Bottom.Screen
        options={{
@@ -40,7 +40,7 @@ export default function DrawerNavigatorRoutes() {
           />
         ),
       }}
-      name="Active Trip"children={() => (<ActiveTrip /> )} />
+      name="Active Trip" component={ActiveTrip} />
 
       <Bottom.Screen
         options={{
@@ -53,7 +53,7 @@ export default function DrawerNavigatorRoutes() {
             />
           ),
         }}
-      name="Archive" children={() => (<Archive /> )} />
+      name="Archive" component={Archive} />
 
     </Bottom.Navigator>
   )

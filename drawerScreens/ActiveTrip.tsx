@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack";
@@ -20,7 +20,7 @@ export default function ActiveTrip() {
   const [ tripId, setTripId ] = useState(null);
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
     const path = `${config.LOCALTUNNEL}/trips/${username}/active`
     axios.get(path)
       .then((response) => {
@@ -35,18 +35,15 @@ export default function ActiveTrip() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="DestinationViewer"
-    // screenOptions={{ headerTransparent: true}}
-    >
-      {/* <Stack.Screen name= "Home Screen" children={() => <HomeScreen /> }/> */}
+    <Stack.Navigator initialRouteName="DestinationViewer">
       <Stack.Screen name= "DestinationViewer" children={() => {
         if (tripId) {
           return (<DestinationViewer tripId={tripId} /> )
         }
         return null }}/>
-      <Stack.Screen name= "AddCity" children={() => <AddCity /> }/>
-      <Stack.Screen name= "AddPOI" children={() => <AddPOI /> }/>
-      <Stack.Screen options={{ headerTransparent: true}} name= "PoiViewer" children={() => <PoiViewer /> }/>
+      <Stack.Screen name= "AddCity" component={AddCity} />
+      <Stack.Screen name= "AddPOI" component={AddPOI} />
+      <Stack.Screen options={{ headerTransparent: true}} name= "PoiViewer" component={PoiViewer} />
     </Stack.Navigator>
   )
 }

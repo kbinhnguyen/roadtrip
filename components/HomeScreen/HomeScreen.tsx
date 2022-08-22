@@ -1,14 +1,12 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useCallback} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Alert, ScrollView, ImageBackground } from 'react-native';
 import TripCard from './TripCard';
 import axios from 'axios';
 import config from '../../config';
 import { useNavigation } from "@react-navigation/native";
-
 import { AuthContext } from '../../AuthProvider.js'
-import { withStyleAnimation } from 'react-native-reanimated/lib/types/lib/reanimated2/animation';
-import { FlipInEasyX } from 'react-native-reanimated';
+
 
 
 export default function HomeScreen(props: any) {
