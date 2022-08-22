@@ -7,6 +7,8 @@ import { useNavigation, useRoute, useFocusEffect } from "@react-navigation/nativ
 import config from '../../config.js';
 import axios from 'axios';
 import getTrip from './getTrip';
+import updateDestinationOrder from './updateDestinationOrder';
+import handleDeleteDestination from './handleDeleteDestination';
 
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -18,22 +20,6 @@ export default function DestinationViewer(props) {
   const tripId = props.tripId || route.params.tripId;
   const [cities, setCities] = useState([]);
 
-
-  const updateDestinationOrder = (afterData:any) => {
-    const beforeData = cities;
-    const path = `${config.LOCALTUNNEL}/trips/${tripId}/destinations`
-
-    const axiosObj = {}
-    for (var i = 0; i < afterData.length; i++) {
-      axiosObj[afterData[i].destination_id] = i + 1;
-    }
-    axios.put(path, axiosObj)
-    .catch((err) => {
-      console.error('errored in the POI put request', err);
-      setCities(beforeData);
-    })
-    setCities(afterData);
-  }
 
   useFocusEffect(
     useCallback(() => {
@@ -49,31 +35,6 @@ export default function DestinationViewer(props) {
     const setPOIsAfterDelete = (newPOIs) => {
       item.POIs = newPOIs;
     }
-
-    const handleDelete = () => {
-      let beforeData = cities;
-      let afterData = [];
-      cities.forEach((city) => {
-        if (city.cityName !== item.cityName) {
-          afterData.push(city);
-        }
-      })
-      const path = `${config.LOCALTUNNEL}/trips/${tripId}/destinations/${item.destination_id}`
-      axios.delete(path)
-      .catch((err) => {
-        console.error('errored when deleted destination', err)
-        setCities(beforeData);
-      })
-      setCities(afterData);
-
-      LayoutAnimation.configureNext(
-        LayoutAnimation.create(
-          150,
-          LayoutAnimation.Types.linear,
-          LayoutAnimation.Properties.scaleY
-        )
-      );
-    };
 
     return (
       <ScaleDecorator>
@@ -115,7 +76,7 @@ export default function DestinationViewer(props) {
               <View style={styles.deleteicon}>
                 <Pressable
                   style={styles.deletearea}
-                  onPressIn={handleDelete}
+                  onPressIn={() => { handleDeleteDestination(item, cities, setCities, tripId); }}
                 >
                   <AntDesign name="delete" size={36} color="white" />
                 </Pressable>
@@ -169,7 +130,7 @@ export default function DestinationViewer(props) {
           onPress = {() => {
             Alert.prompt('Share trip', 'Enter friend\'s email', (email) => {
               axios.post(`${config.LOCALTUNNEL}/share/${email}/${tripId}`)
-                .then( (response) => {
+                .then( () => {
                   Alert.alert('Sharing successful!', `Your friend ${email} can now access this trip`)
                 })
                 .catch( (e) => console.log(e))
@@ -183,7 +144,7 @@ export default function DestinationViewer(props) {
       <View style={styles.body}>
         <DraggableFlatList
           data={cities}
-          onDragEnd={({data}) => updateDestinationOrder(data)}
+          onDragEnd={({data}) => updateDestinationOrder(data, cities, setCities, tripId)}
           keyExtractor={item => item.cityName}
           renderItem={renderCities}
         />
@@ -206,11 +167,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    // backgroundColor: '#219EBC',
   },
   body: {
     flex: 9,
-    // backgroundColor: '#FB8500',
   },
   container: {
     flex: 1,
