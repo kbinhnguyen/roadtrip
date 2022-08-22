@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Pressable, LayoutAnimation, Dimensions} from 'react-native';
-import DraggableFlatList, {
-  ScaleDecorator,
-} from 'react-native-draggable-flatlist';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import DraggableFlatList from 'react-native-draggable-flatlist';
+import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
-import { getItemAsync } from 'expo-secure-store';
 import axios from 'axios';
 import { LOCALTUNNEL } from '../../config';
 import { AuthContext } from '../../AuthProvider.js'
@@ -76,7 +73,7 @@ const POI_List = (props) => {
             {
               params: {
                 poi_id: item.id,
-               user_email: username
+                user_email: username
               }
             });
             //need to pass specific POI ID

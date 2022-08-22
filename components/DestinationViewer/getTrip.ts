@@ -30,7 +30,8 @@ export default function getTrip (tripId, setCities) {
             cities[row.destination_name].POIs.push(poiObj)
           }
         }
-      })
+      });
+
       let destinations = [];
       Object.keys(cities).forEach((key) => {
         let destObj = {
@@ -48,5 +49,5 @@ export default function getTrip (tripId, setCities) {
     })
     .catch((err) => {
       console.error('errored in getTrip', err)
-    })
+    });
 }
