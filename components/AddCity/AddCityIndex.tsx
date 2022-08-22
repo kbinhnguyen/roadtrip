@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Text, StyleSheet, View, ScrollView, TouchableHighlight, Button } from 'react-native';
+import {Text, StyleSheet, View, TouchableHighlight, Button } from 'react-native';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from 'axios';
 import Form from './Form';
@@ -10,18 +10,21 @@ import config from '../../config'
   const navigation = useNavigation();
   const route = useRoute();
 
-  const [list, setList] = useState<{name: string, id: string}[]>([]);
+  let [list, setList] = useState<{name: string, id: string}[]>([]);
   const {trip_id, lastIndex} = route.params;
 
-  var post = () => {
+  console.log(list);
+  const post = () => {
     // sends an array of objects to back end, must deconstruct and store each
     // individual city server side
-    return axios.post(`${config.LOCALTUNNEL}/postCities`, list)
+    axios.post(`${config.LOCALTUNNEL}/postCities`, list)
     .then(() => {
       console.log('success posting from front end');
-      navigation.navigate('DestinationViewer', {tripId: trip_id});
     })
-    .catch((err) => {console.log('Err in posting from front end', err)})
+    .catch((err) => {
+      console.log('Err in posting from front end', err)
+    });
+    navigation.navigate('DestinationViewer', {tripId: trip_id});
   };
 
   return (
