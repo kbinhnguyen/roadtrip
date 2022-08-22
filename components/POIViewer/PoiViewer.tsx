@@ -1,11 +1,10 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import {Keyboard, Dimensions, StyleSheet, Text, View, Image, TextInput, Pressable, TouchableHighlight, ScrollView, NativeModules } from 'react-native';
+import {StyleSheet, Text, View, Image, Pressable, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import config from '../../config.js';
 import Edit from './Edit.tsx';
-import styled from 'react-native-styled-components';
 import Stars from 'react-native-stars';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 

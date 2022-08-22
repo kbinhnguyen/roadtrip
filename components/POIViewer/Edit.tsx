@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { StatusBar } from 'expo-status-bar';
-import {Keyboard, Dimensions, StyleSheet, Text, View, Image, TextInput, Pressable, Modal, ScrollView, Alert, PermissionsAndroid } from 'react-native';
-import axios from 'axios';
-import config from '../../config.js';
+import {StyleSheet, Text, View, TextInput, Pressable, Modal, ScrollView } from 'react-native';
 
 export default function Edit({updateNote, showModal, displayModal, title, note}) {
 
-  const [showPost, setShowPost] = useState(false)
   const [changeNote, setChangeNote] = useState(note)
 
   const updatingNote = () => {
@@ -14,7 +10,6 @@ export default function Edit({updateNote, showModal, displayModal, title, note})
     displayModal()
   }
 
-  // console.log("What is the note? :", changeNote)
 
 
   return (
@@ -23,7 +18,6 @@ export default function Edit({updateNote, showModal, displayModal, title, note})
       <Modal animationType="slide" visible={showModal}>
         <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-        {/* <View > */}
         <Pressable
       onPress={displayModal}>
         <View style={styles.hide}>
@@ -31,7 +25,6 @@ export default function Edit({updateNote, showModal, displayModal, title, note})
         </View>
       </Pressable>
 
-        {/* </View> */}
         </View>
 
         <View>
