@@ -38,6 +38,7 @@ export default function DestinationViewer(props) {
   useFocusEffect(
     useCallback(() => {
       getTrip(tripId, setCities);
+      // console.log('I was called inside DestinationViewer');
       return () => { setCities([]); }
     }, [])
   );

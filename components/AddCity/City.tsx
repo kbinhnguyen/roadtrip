@@ -2,7 +2,6 @@ import React from 'react';
 import {Text, View, StyleSheet } from 'react-native';
 
 export default function City ( {cityInfo}: {cityInfo: any}) {
-  // console.log('within the city', cityInfo.name)
   return (
     <View style = {styles.container}>
       <Text style={styles.text}> {cityInfo.name} </Text>
@@ -21,12 +20,9 @@ var styles = StyleSheet.create({
     height: 80,
     borderRadius: 15,
     backgroundColor: '#DEDBD2',
-    // width: 300,
-    // height: 50,
   },
 
   text: {
     fontSize: 18,
-
   }
 })

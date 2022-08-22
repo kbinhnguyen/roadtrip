@@ -1,10 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
-import {Text, StyleSheet, View, Image, TextInput, Button } from 'react-native';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import config from '../../config';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import City from './City';
-import { getZipCode } from 'use-places-autocomplete';
+
 
 export default function Form ( {list, setList, trip_id, lastIndex}:
   {list: any, setList: any, trip_id: number, lastIndex: number}) {
@@ -16,12 +14,6 @@ export default function Form ( {list, setList, trip_id, lastIndex}:
 
       {/* Auto Complete Field */}
      <GooglePlacesAutocomplete
-      // styles = {{
-      //   textInputContainer: {
-      //     backgroundColor: 'black'
-      //   },
-      //   textInput:
-      // }}
       placeholder='Search'
       textInputProps= {{
         value : {location},
@@ -31,9 +23,6 @@ export default function Form ( {list, setList, trip_id, lastIndex}:
       }}
       enablePoweredByContainer = {false}
       onPress={(data, details = null) => {
-        // main_text is the city name, place_id is the city id
-        // console.log('yeees this is data', details)
-        // console.log('-----flagged', data.structured_formatting.main_text, data.place_id)
         var cityInfo = {
           name: data.structured_formatting.main_text,
           id: data.place_id,
@@ -52,9 +41,6 @@ export default function Form ( {list, setList, trip_id, lastIndex}:
       }}
       fetchDetails = {true}
       />
-
-      {/* List of Cities */}
-
     </View>
   )
 };

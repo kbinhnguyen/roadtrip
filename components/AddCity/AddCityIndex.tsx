@@ -4,26 +4,24 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from 'axios';
 import Form from './Form';
 import City from './City';
-import ShareButton from './ShareButton';
 import config from '../../config'
 
   export default function AddCity ( { }) {
   const navigation = useNavigation();
   const route = useRoute();
 
-  var [list, setList] = useState<{name: string, id: string}[]>([]);
+  const [list, setList] = useState<{name: string, id: string}[]>([]);
   const {trip_id, lastIndex} = route.params;
-  console.log('routerrrrrrrr', route);
-  // console.log('new checker', navigation)
 
   var post = () => {
     // sends an array of objects to back end, must deconstruct and store each
     // individual city server side
-    axios.post(`${config.LOCALTUNNEL}/postCities`, list)
-    .then(() => {console.log('success posting from front end')})
+    return axios.post(`${config.LOCALTUNNEL}/postCities`, list)
+    .then(() => {
+      console.log('success posting from front end');
+      navigation.navigate('DestinationViewer', {tripId: trip_id});
+    })
     .catch((err) => {console.log('Err in posting from front end', err)})
-    navigation.navigate('DestinationViewer', {tripId: trip_id})
-    // return trip id {tripId: trip_id}
   };
 
   return (
@@ -36,7 +34,6 @@ import config from '../../config'
         />
     <View style={styles.cityContainer}>
       {list.map((city: any) => {
-          console.log('what is list', list, 'and what is city', city)
         return (
           <City key={city.id} cityInfo= {city} />
         )
