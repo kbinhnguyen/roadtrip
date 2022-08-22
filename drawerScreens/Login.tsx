@@ -8,11 +8,11 @@ import AddPOI from "../components/AddPOI/AddPOI";
 
 const Stack = createNativeStackNavigator();
 
-export default function Login() {
+export default function Login({ setActiveTripId }) {
 
   return (
     <Stack.Navigator initialRouteName="Home Screen">
-      <Stack.Screen name= "Home Screen" component={HomeScreen} />
+      <Stack.Screen name= "Home Screen" children={() => (<HomeScreen setActiveTripId={setActiveTripId} />)} />
       <Stack.Screen name= "DestinationViewer" component={DestinationViewer} />
       <Stack.Screen name= "AddCity" component={AddCity} />
       <Stack.Screen name= "AddPOI" component={AddPOI} />

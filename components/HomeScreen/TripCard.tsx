@@ -16,10 +16,7 @@ export default function TripCard(props: any) {
             tripName: props.tripName
           })
         } else {
-          const jumpToAction = TabActions.jumpTo('Active Trip', {
-            tripId: props.tripId,
-            tripName: props.tripName
-          });
+          const jumpToAction = TabActions.jumpTo('Active Trip');
           navigation.dispatch(jumpToAction);
         }
 

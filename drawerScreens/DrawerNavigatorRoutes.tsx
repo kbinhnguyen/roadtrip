@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "./Login";
@@ -10,6 +10,7 @@ import ActiveTrip from "./ActiveTrip";
 const Bottom = createBottomTabNavigator();
 
 export default function DrawerNavigatorRoutes() {
+  const [ activeTripId, setActiveTripId ] = useState(null);
 
   return (
     <Bottom.Navigator>
@@ -26,7 +27,7 @@ export default function DrawerNavigatorRoutes() {
           unmountOnBlur: true,
         }}
         name="All Trips"
-        component={Login}
+        children={() => (<Login setActiveTripId={setActiveTripId} />)}
       />
 
       <Bottom.Screen
@@ -39,8 +40,10 @@ export default function DrawerNavigatorRoutes() {
             style={{ width: 30, height: 30, borderRadius: 10 }}
           />
         ),
-      }}
-      name="Active Trip" component={ActiveTrip} />
+        }}
+        name="Active Trip"
+        children={() => (<ActiveTrip activeTripId={activeTripId} />)}
+      />
 
       <Bottom.Screen
         options={{

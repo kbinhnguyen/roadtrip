@@ -21,6 +21,11 @@ export default function HomeScreen(props: any) {
     axios.get(`${config.LOCALTUNNEL}/trips/${userEmail}`)
     .then((results) => {
       setTripsShowing(results.data);
+      results.data.forEach((trip) => {
+        if (trip.status === 'active') {
+          props.setActiveTripId(trip.id);
+        }
+      });
     })
     .catch((error) => {
       console.error(error);
@@ -33,7 +38,6 @@ export default function HomeScreen(props: any) {
         <ScrollView contentContainerStyle={styles.scroll}>
           {
             tripsShowing.map((trip: any) => {
-              // console.log('Trip ID: ', trip.id);
               return (<TripCard key={trip.id} tripId={trip.id} tripName={trip.name} tripStatus={trip.status} />)
             })
           }

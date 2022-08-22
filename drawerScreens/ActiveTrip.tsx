@@ -11,36 +11,29 @@ import AddPOI from "../components/AddPOI/AddPOI";
 
 const Stack = createStackNavigator();
 
-export default function ActiveTrip({ route }) {
+export default function ActiveTrip({ activeTripId }) {
 
-  const { username } = useContext(AuthContext);
-  const [ tripId, setTripId ] = useState(null);
+  // const { username } = useContext(AuthContext);
+  // const [ tripId, setTripId ] = useState(null);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (route.params) {
-        console.log('if statement was called');
-        setTripId(route.params.tripId);
-      } else {
-        console.log('else in useFocusEffect was called');
-        const path = `${config.LOCALTUNNEL}/trips/${username}/active`
-        axios.get(path)
-          .then((response) => {
-            setTripId(response.data.id);
-          })
-          .catch((err) => {
-            console.error('errored in gettingActiveTrip', err)});
-      }
-      return () => { setTripId(null); }
-    }, [])
-  );
-
+  // useFocusEffect(
+  //   useCallback(() => {
+  //   const path = `${config.LOCALTUNNEL}/trips/${username}/active`
+  //   axios.get(path)
+  //     .then((response) => {
+  //       setTripId(response.data.id);
+  //     })
+  //     .catch((err) => {
+  //       console.error('errored in gettingActiveTrip', err)});
+  // return () => { setTripId(null); }
+  //   }, [])
+  // );
 
   return (
     <Stack.Navigator initialRouteName="DestinationViewer">
       <Stack.Screen name= "DestinationViewer" children={() => {
-        if (tripId) {
-          return (<DestinationViewer tripId={tripId} /> )
+        if (activeTripId) {
+          return (<DestinationViewer tripId={activeTripId} /> )
         }
         return null }}/>
       <Stack.Screen name= "AddCity" component={AddCity} />
