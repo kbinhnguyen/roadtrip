@@ -1,10 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import React, { useState, useRef, useCallback } from 'react';
 import { View, StyleSheet, Text, LayoutAnimation, ScrollView, Animated, Dimensions, Pressable, Modal, TextInput, Alert } from 'react-native';
 import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
 import POI_List from './POI_List';
 import { AntDesign, FontAwesome, Entypo } from '@expo/vector-icons';
-import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
+import { useNavigation, useRoute, useFocusEffect } from "@react-navigation/native";
 import config from '../../config.js';
 import axios from 'axios';
 import getTrip from './getTrip';
@@ -36,11 +35,12 @@ export default function DestinationViewer(props) {
     setCities(afterData);
   }
 
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    isFocused && getTrip(tripId, setCities);
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      getTrip(tripId, setCities);
+      return () => { setCities([]); }
+    }, [])
+  );
 
   const renderCities = ({ item, drag, isActive }) => {
     const [expanded, setExpanded] = useState(false);
