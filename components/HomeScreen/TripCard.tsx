@@ -1,22 +1,28 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, TabActions } from "@react-navigation/native";
 
 export default function TripCard(props: any) {
 
-  const [active, setActive] = useState(false);
-
   const navigation = useNavigation();
-  // console.log(props.key);
 
   return (
     <Pressable
       style={styles.container}
       onPress={() => {
-        navigation.navigate('DestinationViewer', {
-          tripId: props.tripId,
-          tripName: props.tripName
-        })
+        if (props.tripStatus !== 'active') {
+          navigation.navigate('DestinationViewer', {
+            tripId: props.tripId,
+            tripName: props.tripName
+          })
+        } else {
+          const jumpToAction = TabActions.jumpTo('Active Trip', {
+            tripId: props.tripId,
+            tripName: props.tripName
+          });
+          navigation.dispatch(jumpToAction);
+        }
+
       }}
     >
       <Text style={styles.tripName}>{props.tripName}</Text>
