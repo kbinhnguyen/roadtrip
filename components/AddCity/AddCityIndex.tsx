@@ -13,7 +13,8 @@ import config from '../../config'
   let [list, setList] = useState<{name: string, id: string}[]>([]);
   const {trip_id, lastIndex} = route.params;
 
-  const post = () => {
+  const post = (e) => {
+    e.preventDefault();
     // sends an array of objects to back end, must deconstruct and store each
     // individual city server side
     axios.post(`${config.LOCALTUNNEL}/postCities`, list)
