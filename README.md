@@ -33,3 +33,4 @@ This project was a 1-week sprint where our team of 9 engineers completed an MVP 
 ## Notes & Project status
 - This is a standalone repo that was originally forked from the [main project](https://github.com/naruto-blue-ocean/roadtrip). Please check out that page for more details.
 - This repo has fixed the majority of navigation bugs from the original project. However, this project is no longer worked on so that I can focus on higher-priority ones.
+- The corresponding server repo is [here](https://github.com/kbinhnguyen/roadtrip-server).
