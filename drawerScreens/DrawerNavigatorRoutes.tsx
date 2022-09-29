@@ -24,7 +24,7 @@ export default function DrawerNavigatorRoutes() {
               style={{ width: 30, height: 30, borderRadius: 10 }}
             />
           ),
-          unmountOnBlur: true,
+          // unmountOnBlur: true,
         }}
         name="All Trips"
         children={() => (<Login setActiveTripId={setActiveTripId} />)}
